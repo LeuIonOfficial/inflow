@@ -73,7 +73,6 @@ export function PromoSection({
         >
           <SimpleVideoPlayer
             url={mediaUrl}
-            title={title}
             muted
             loop
             showControls={true}

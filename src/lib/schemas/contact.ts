@@ -5,9 +5,7 @@ export const ContactFormSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   subject: z.string().min(5, "Subject must be at least 5 characters"),
   message: z.string().min(10, "Message must be at least 10 characters"),
-  inquiryType: z.enum(["booking", "press", "collaboration", "general"], {
-    required_error: "Please select an inquiry type",
-  }),
+  inquiryType: z.enum(["booking", "press", "collaboration", "general"]),
   hcaptchaToken: z.string().min(1, "Please complete the captcha verification"),
 });
 

@@ -22,6 +22,7 @@ export const tracks: Track[] = [
     audioUrl: "/audio/midnight-fire.mp3",
     album: "Electric Nights",
     year: 2024,
+    isSingle: true,
     genre: "Rock",
     description:
       "A blazing anthem that ignites the night with its fierce energy and unforgettable hooks.",
@@ -34,6 +35,7 @@ export const tracks: Track[] = [
     audioUrl: "/audio/steel-heart.mp3",
     album: "Electric Nights",
     year: 2024,
+    isSingle: true,
     genre: "Rock",
     description:
       "An emotional powerhouse showcasing our softer side without losing the rock edge.",
@@ -46,6 +48,7 @@ export const tracks: Track[] = [
     audioUrl: "/audio/neon-dreams.mp3",
     album: "City Lights",
     year: 2023,
+    isSingle: true,
     genre: "Alternative Rock",
     description:
       "A synthwave-influenced rock track that captures the essence of urban nightlife.",
@@ -58,6 +61,7 @@ export const tracks: Track[] = [
     audioUrl: "/audio/rebel-soul.mp3",
     album: "City Lights",
     year: 2023,
+    isSingle: true,
     genre: "Alternative Rock",
     description:
       "An anthem for the misfits and dreamers, with driving beats and soaring vocals.",
@@ -70,6 +74,7 @@ export const tracks: Track[] = [
     audioUrl: "/audio/electric-storm.mp3",
     album: "City Lights",
     year: 2023,
+    isSingle: true,
     genre: "Progressive Rock",
     description:
       "Our longest track featuring intricate guitar work and dynamic tempo changes.",
