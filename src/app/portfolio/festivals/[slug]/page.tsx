@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -10,9 +12,9 @@ import {
   Camera,
   Users,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { useParams } from "next/navigation";
+import { EnhancedImage } from "@/components/enhanced-image";
 
 import { festivals } from "@/lib/data/festivals";
 import { Button } from "@/components/ui/button";
@@ -22,16 +24,27 @@ import { TextAnimate } from "@/components/ui/text-animate";
 import { FestivalGallery } from "@/components/festival-gallery";
 import { VideoEmbed } from "@/components/video-embed";
 
-interface FestivalPageProps {
-  params: Promise<{ slug: string }>;
-}
+type FestivalPageProps = Record<string, never>;
 
-export default async function FestivalPage({ params }: FestivalPageProps) {
-  const { slug } = await params;
+export default function FestivalPage({}: FestivalPageProps) {
+  const params = useParams();
+  const slug = params.slug as string;
   const festival = festivals.find((f) => f.slug === slug);
 
   if (!festival) {
-    notFound();
+    return (
+      <div className="min-h-screen py-24 px-4">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h1 className="text-2xl font-bold mb-4">Festival Not Found</h1>
+          <p className="text-muted-foreground mb-8">
+            The festival you&apos;re looking for doesn&apos;t exist.
+          </p>
+          <Button asChild>
+            <Link href="/portfolio/festivals">Back to Festivals</Link>
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   const formatDate = (dateString: string) => {
@@ -162,11 +175,12 @@ export default async function FestivalPage({ params }: FestivalPageProps) {
                 className="lg:w-1/2"
               >
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-                  <Image
+                  <EnhancedImage
                     src={festival.photos[0].url}
                     alt={festival.name}
-                    fill
-                    className="object-cover"
+                    className="w-full h-full object-cover"
+                    aspectRatio="auto"
+                    showHoverEffect={false}
                     priority
                   />
                 </div>
@@ -347,11 +361,12 @@ export default async function FestivalPage({ params }: FestivalPageProps) {
                     <Card className="overflow-hidden group cursor-pointer h-full">
                       {otherFestival.photos[0] && (
                         <div className="relative aspect-[16/10]">
-                          <Image
+                          <EnhancedImage
                             src={otherFestival.photos[0].url}
                             alt={otherFestival.name}
-                            fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            aspectRatio="auto"
+                            showHoverEffect={false}
                           />
                         </div>
                       )}

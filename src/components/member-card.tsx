@@ -1,14 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 import { Member } from "@/lib/schemas/member";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { EnhancedImage } from "@/components/enhanced-image";
 
 interface MemberCardProps {
   member: Member;
@@ -28,7 +28,7 @@ export function MemberCard({ member, index = 0 }: MemberCardProps) {
         ease: [0.4, 0, 0.2, 1],
       },
     },
-  };
+  } as Variants;
 
   return (
     <motion.div
@@ -39,13 +39,14 @@ export function MemberCard({ member, index = 0 }: MemberCardProps) {
       whileHover={{ y: -8, scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
-      <Card className="overflow-hidden group cursor-pointer">
+      <Card className="overflow-hidden h-full group cursor-pointer">
         <div className="relative aspect-[4/5] overflow-hidden">
-          <Image
+          <EnhancedImage
             src={member.photo}
             alt={member.name}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            aspectRatio="auto"
+            showHoverEffect={false}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
@@ -75,20 +76,20 @@ export function MemberCard({ member, index = 0 }: MemberCardProps) {
           </div>
         </div>
 
-        <CardHeader className="pb-2">
-          <div className="space-y-2">
+        <CardContent className="pt-0 flex flex-col h-full">
+          {/* Title and role */}
+          <div className="text-center mb-4">
             <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
               {member.name}
             </h3>
             <p className="text-muted-foreground">{member.role}</p>
           </div>
-        </CardHeader>
 
-        <CardContent className="pt-0">
-          <div className="space-y-3">
+          {/* Content area */}
+          <div className="space-y-3 flex-1">
             {/* Instruments */}
             {member.instruments && member.instruments.length > 0 && (
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-1 justify-center">
                 {member.instruments.map((instrument) => (
                   <Badge
                     key={instrument}
@@ -103,19 +104,22 @@ export function MemberCard({ member, index = 0 }: MemberCardProps) {
 
             {/* Join year */}
             {member.joinedYear && (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground text-center">
                 Joined {member.joinedYear}
               </p>
             )}
 
             {/* Bio preview */}
-            <p className="text-sm text-muted-foreground line-clamp-3">
+            <p className="text-sm text-muted-foreground line-clamp-3 text-center">
               {member.bioMD.split("\n")[0].substring(0, 120)}...
             </p>
+          </div>
 
+          {/* Button at bottom */}
+          <div className="mt-auto pt-4">
             <Button
               asChild
-              variant="outline"
+              variant="default"
               className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
             >
               <Link href={`/band/${member.slug}`}>Learn More</Link>

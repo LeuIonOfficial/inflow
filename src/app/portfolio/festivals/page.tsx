@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Filter, SortAsc, Link } from "lucide-react";
+import { Calendar, MapPin, Filter, SortAsc } from "lucide-react";
 
 import { festivals } from "@/lib/data/festivals";
 import { FestivalCard } from "@/components/festival-card";
@@ -217,12 +217,22 @@ export default function FestivalsPage() {
             booking, let&apos;s make it happen.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild variant="default">
-              <a href="/contact">Get in Touch</a>
-            </Button>
-            <Button asChild variant="outline">
-              <Link href="/music">Listen to Our Music</Link>
-            </Button>
+            <motion.a
+              href="/portfolio/festivals"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center justify-center px-6 py-3 rounded-md bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+            >
+              View Live Performances
+            </motion.a>
+            <motion.a
+              href="/music"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center justify-center px-6 py-3 rounded-md border border-border font-medium hover:bg-muted transition-colors"
+            >
+              Listen to Our Music
+            </motion.a>
           </div>
         </motion.div>
       </div>

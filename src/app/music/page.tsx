@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Play, Plus, Clock, Calendar } from "lucide-react";
-import Image from "next/image";
+import { EnhancedImage } from "@/components/enhanced-image";
 
 import { tracks } from "@/lib/data/tracks";
 import { useAudio } from "@/components/audio/audio-context";
@@ -111,11 +111,12 @@ export default function MusicPage() {
                     <div className="flex items-center space-x-4">
                       {albumTracks[0]?.cover && (
                         <div className="relative w-16 h-16 rounded-lg overflow-hidden">
-                          <Image
+                          <EnhancedImage
                             src={albumTracks[0].cover}
                             alt={albumName}
-                            fill
-                            className="object-cover"
+                            className="w-full h-full object-cover"
+                            aspectRatio="1/1"
+                            showHoverEffect={false}
                           />
                         </div>
                       )}

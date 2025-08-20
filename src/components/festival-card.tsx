@@ -2,13 +2,13 @@
 
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Play, ExternalLink } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 import { Festival } from "@/lib/schemas/festival";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { EnhancedImage } from "@/components/enhanced-image";
 
 interface FestivalCardProps {
   festival: Festival;
@@ -71,11 +71,12 @@ export function FestivalCard({ festival, index = 0 }: FestivalCardProps) {
         {/* Featured Image */}
         {primaryImage && (
           <div className="relative aspect-[16/10] overflow-hidden">
-            <Image
+            <EnhancedImage
               src={primaryImage}
               alt={festival.name}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              aspectRatio="auto"
+              showHoverEffect={false}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 

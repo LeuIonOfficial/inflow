@@ -1,8 +1,10 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { ArrowLeft, ExternalLink, Calendar, Music } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { useParams } from "next/navigation";
+import { EnhancedImage } from "@/components/enhanced-image";
 
 import { members } from "@/lib/data/members";
 import { Button } from "@/components/ui/button";
@@ -10,16 +12,27 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TextAnimate } from "@/components/ui/text-animate";
 
-interface MemberPageProps {
-  params: Promise<{ slug: string }>;
-}
+type MemberPageProps = Record<string, never>;
 
-export default async function MemberPage({ params }: MemberPageProps) {
-  const { slug } = await params;
+export default function MemberPage({}: MemberPageProps) {
+  const params = useParams();
+  const slug = params.slug as string;
   const member = members.find((m) => m.slug === slug);
 
   if (!member) {
-    notFound();
+    return (
+      <div className="min-h-screen py-24 px-4">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h1 className="text-2xl font-bold mb-4">Member Not Found</h1>
+          <p className="text-muted-foreground mb-8">
+            The member you&apos;re looking for doesn&apos;t exist.
+          </p>
+          <Button asChild>
+            <Link href="/band">Back to Band</Link>
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   // Convert markdown to paragraphs (simple implementation)
@@ -53,11 +66,12 @@ export default async function MemberPage({ params }: MemberPageProps) {
           >
             <Card className="overflow-hidden">
               <div className="relative aspect-[4/5]">
-                <Image
+                <EnhancedImage
                   src={member.photo}
                   alt={member.name}
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
+                  aspectRatio="auto"
+                  showHoverEffect={false}
                   priority
                 />
               </div>
@@ -144,7 +158,7 @@ export default async function MemberPage({ params }: MemberPageProps) {
                   className="text-3xl md:text-4xl font-bold mb-4"
                   as="h2"
                 >
-                  About {member.name.split(" ")[0]}
+                  {`About ${member.name.split(" ")[0] || member.name}`}
                 </TextAnimate>
               </div>
 
@@ -206,11 +220,12 @@ export default async function MemberPage({ params }: MemberPageProps) {
                   <Link href={`/band/${otherMember.slug}`}>
                     <Card className="overflow-hidden group cursor-pointer">
                       <div className="relative aspect-[4/3]">
-                        <Image
+                        <EnhancedImage
                           src={otherMember.photo}
                           alt={otherMember.name}
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          aspectRatio="auto"
+                          showHoverEffect={false}
                         />
                       </div>
                       <CardContent className="p-4">

@@ -130,7 +130,18 @@ This performance opened our eyes to the global potential of our music and has in
 Playing at Coachella has been a dream of ours since we started the band. The festival's reputation for launching careers and creating iconic moments makes this opportunity incredibly special.
 
 We're planning a special setlist that will include some surprises and possibly debut new material. Stay tuned for more details as we get closer to the date!`,
-    photos: [],
+    photos: [
+      {
+        url: "/images/festivals/summer-sonic-2024-1.jpg",
+        caption: "First time performing in Japan - an incredible experience",
+        photographer: "Takeshi Yamamoto",
+      },
+      {
+        url: "/images/festivals/summer-sonic-2024-2.jpg",
+        caption: "The respectful and energetic Japanese crowd",
+        photographer: "Takeshi Yamamoto",
+      },
+    ],
     videos: [],
     setlist: [], // TBA
     pressQuotes: [],

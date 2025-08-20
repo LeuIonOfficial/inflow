@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[calc(100vh-67px)] flex items-center justify-center overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/30" />
 
@@ -165,9 +165,9 @@ export default function Home() {
         description="Our most powerful track yet - a thunderous journey through raw emotion and electrifying sound. Experience the energy that's been captivating audiences worldwide."
         ctaText="Listen Now"
         ctaHref="/music"
-        mediaUrl="/images/thunder-road-cover.jpg"
-        mediaType="image"
-        className="bg-gradient-to-br from-background to-muted/10"
+        mediaUrl="https://www.youtube.com/watch?v=V6rjNE8A8N8&list=RDV6rjNE8A8N8&start_radio=1"
+        mediaType="video"
+        className="bg-gradient-to-br h-full from-background to-muted/10"
       />
 
       {/* Upcoming Shows */}
@@ -177,8 +177,8 @@ export default function Home() {
         description="Nothing compares to the raw energy of our live performances. Join thousands of fans as we bring our music to life on stage across the world's biggest festivals."
         ctaText="View All Shows"
         ctaHref="/portfolio/festivals"
-        mediaUrl="/images/live-performance.jpg"
-        mediaType="image"
+        mediaUrl="https://www.youtube.com/shorts/pvkXQfkxPOQ"
+        mediaType="video"
         layout="reverse"
         className="bg-muted/10"
       />
@@ -190,8 +190,8 @@ export default function Home() {
         description="Get to know the talented musicians who pour their hearts and souls into every performance. From our lead guitarist's blazing solos to our drummer's thunderous beats."
         ctaText="Meet the Band"
         ctaHref="/band"
-        mediaUrl="/images/band-photo.jpg"
-        mediaType="image"
+        mediaUrl="https://www.youtube.com/shorts/HzQ8ElzvBdA"
+        mediaType="video"
         layout="centered"
         className="bg-gradient-to-t from-muted/20 to-background"
       />

@@ -16,7 +16,7 @@ import {
   ChevronDown,
   List,
 } from "lucide-react";
-import Image from "next/image";
+import { EnhancedImage } from "@/components/enhanced-image";
 
 import { useAudio } from "./audio-context";
 import { Button } from "@/components/ui/button";
@@ -159,11 +159,12 @@ export function GlobalAudioPlayer() {
             <div className="flex items-center space-x-3 min-w-0 flex-1">
               {currentTrack?.cover && (
                 <div className="relative w-12 h-12 rounded-md overflow-hidden flex-shrink-0">
-                  <Image
+                  <EnhancedImage
                     src={currentTrack.cover}
                     alt={currentTrack.title}
-                    fill
-                    className="object-cover"
+                    className="w-full h-full object-cover"
+                    aspectRatio="1/1"
+                    showHoverEffect={false}
                   />
                 </div>
               )}
@@ -281,11 +282,12 @@ export function GlobalAudioPlayer() {
                   <div className="flex items-center space-x-4">
                     {currentTrack?.cover && (
                       <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                        <Image
+                        <EnhancedImage
                           src={currentTrack.cover}
                           alt={currentTrack.title}
-                          fill
-                          className="object-cover"
+                          className="w-full h-full object-cover"
+                          aspectRatio="1/1"
+                          showHoverEffect={false}
                         />
                       </div>
                     )}
@@ -411,11 +413,12 @@ export function GlobalAudioPlayer() {
                                 >
                                   {track.cover && (
                                     <div className="relative w-8 h-8 rounded overflow-hidden">
-                                      <Image
+                                      <EnhancedImage
                                         src={track.cover}
                                         alt={track.title}
-                                        fill
-                                        className="object-cover"
+                                        className="w-full h-full object-cover"
+                                        aspectRatio="1/1"
+                                        showHoverEffect={false}
                                       />
                                     </div>
                                   )}

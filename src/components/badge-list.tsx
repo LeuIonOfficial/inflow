@@ -3,10 +3,10 @@
 import * as React from "react";
 import { motion, Variants } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import Image from "next/image";
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { EnhancedImage } from "@/components/enhanced-image";
 
 interface PressItem {
   name: string;
@@ -59,12 +59,12 @@ export function BadgeList({
     const badgeContent = (
       <div className="flex items-center space-x-2 p-3">
         {showLogos && item.logo && (
-          <Image
+          <EnhancedImage
             src={item.logo}
             alt={`${item.name} logo`}
-            width={24}
-            height={24}
             className="h-6 w-6 object-contain"
+            aspectRatio="1/1"
+            showHoverEffect={false}
           />
         )}
         <span className="font-medium">{item.name}</span>

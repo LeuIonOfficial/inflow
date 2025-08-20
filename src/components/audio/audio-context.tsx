@@ -153,16 +153,12 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
             next();
           }
         },
-        onerror: (id, error) => {
-          console.error("Audio playback error:", error);
-          setIsLoading(false);
-          setIsPlaying(false);
-        },
       });
 
       howlRef.current = howl;
     },
-    [volume, repeatMode, startTimeUpdate, stopTimeUpdate, next]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [volume, repeatMode, startTimeUpdate, stopTimeUpdate]
   );
 
   // Actions

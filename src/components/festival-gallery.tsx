@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, Camera } from "lucide-react";
-import Image from "next/image";
 
 import { Festival } from "@/lib/schemas/festival";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { EnhancedImage } from "@/components/enhanced-image";
 
 interface FestivalGalleryProps {
   festival: Festival;
@@ -24,51 +24,50 @@ export function FestivalGallery({ festival }: FestivalGalleryProps) {
     setIsLightboxOpen(true);
   };
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setIsLightboxOpen(false);
     setSelectedImageIndex(null);
-  };
+  }, []);
 
-  const goToPrevious = () => {
+  const goToPrevious = useCallback(() => {
     if (selectedImageIndex === null) return;
     const newIndex =
       selectedImageIndex === 0
         ? festival.photos.length - 1
         : selectedImageIndex - 1;
     setSelectedImageIndex(newIndex);
-  };
+  }, [selectedImageIndex, festival.photos.length]);
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     if (selectedImageIndex === null) return;
     const newIndex =
       selectedImageIndex === festival.photos.length - 1
         ? 0
         : selectedImageIndex + 1;
     setSelectedImageIndex(newIndex);
-  };
-
-  // Handle keyboard navigation
-  const handleKeyPress = (e: KeyboardEvent) => {
-    if (!isLightboxOpen) return;
-
-    switch (e.key) {
-      case "Escape":
-        closeLightbox();
-        break;
-      case "ArrowLeft":
-        goToPrevious();
-        break;
-      case "ArrowRight":
-        goToNext();
-        break;
-    }
-  };
+  }, [selectedImageIndex, festival.photos.length]);
 
   // Add keyboard event listeners
-  useState(() => {
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (!isLightboxOpen) return;
+
+      switch (e.key) {
+        case "Escape":
+          closeLightbox();
+          break;
+        case "ArrowLeft":
+          goToPrevious();
+          break;
+        case "ArrowRight":
+          goToNext();
+          break;
+      }
+    };
+
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  });
+  }, [isLightboxOpen, closeLightbox, goToPrevious, goToNext]);
 
   if (festival.photos.length === 0) {
     return (
@@ -95,11 +94,12 @@ export function FestivalGallery({ festival }: FestivalGalleryProps) {
             className="relative aspect-[4/3] cursor-pointer group overflow-hidden rounded-lg"
             onClick={() => openLightbox(index)}
           >
-            <Image
+            <EnhancedImage
               src={photo.url}
               alt={photo.caption || `${festival.name} photo ${index + 1}`}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              aspectRatio="4/3"
+              showHoverEffect={false}
             />
 
             {/* Overlay */}
@@ -176,15 +176,15 @@ export function FestivalGallery({ festival }: FestivalGalleryProps) {
                     transition={{ duration: 0.3 }}
                     className="relative max-w-full max-h-full"
                   >
-                    <Image
+                    <EnhancedImage
                       src={festival.photos[selectedImageIndex].url}
                       alt={
                         festival.photos[selectedImageIndex].caption ||
                         `${festival.name} photo ${selectedImageIndex + 1}`
                       }
-                      width={1200}
-                      height={800}
                       className="max-w-full max-h-full object-contain"
+                      aspectRatio="auto"
+                      showHoverEffect={false}
                     />
                   </motion.div>
                 </AnimatePresence>
