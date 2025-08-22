@@ -41,9 +41,12 @@ export default defineType({
       },
     }),
     defineField({
-      name: "audioUrl",
-      title: "Audio URL",
-      type: "url",
+      name: "audioFile",
+      title: "Audio File",
+      type: "file",
+      options: {
+        accept: "audio/*",
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({

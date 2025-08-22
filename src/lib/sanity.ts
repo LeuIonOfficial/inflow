@@ -122,7 +122,12 @@ export const queries = {
         url
       }
     },
-    audioUrl,
+    audioFile {
+      asset->{
+        _id,
+        url
+      }
+    },
     album,
     year,
     isSingle,
@@ -141,7 +146,12 @@ export const queries = {
         url
       }
     },
-    audioUrl,
+    audioFile {
+      asset->{
+        _id,
+        url
+      }
+    },
     album,
     year,
     isSingle,

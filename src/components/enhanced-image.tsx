@@ -67,29 +67,23 @@ export function EnhancedImage({
       className={cn("relative overflow-hidden rounded-lg bg-muted", className)}
       style={getAspectRatioStyles()}
     >
-      <motion.div
-        initial={{ opacity: 0, scale: 1.05 }}
-        animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 1.05 }}
-        transition={{ duration: 0.3 }}
-        className="relative w-full h-full"
-      >
-        <Image
-          src={src}
-          alt={alt}
-          fill={fill}
-          priority={priority}
-          sizes={sizes}
-          className={cn(
-            "object-cover transition-transform duration-500",
-            showHoverEffect && "hover:scale-105"
-          )}
-          onLoad={() => setIsLoaded(true)}
-          onError={() => setHasError(true)}
-        />
-      </motion.div>
+      <Image
+        src={src}
+        alt={alt}
+        fill={fill}
+        priority={priority}
+        sizes={sizes}
+        className={cn(
+          "object-cover transition-transform duration-500",
+          showHoverEffect && "hover:scale-105",
+          isLoaded ? "opacity-100" : "opacity-0"
+        )}
+        onLoad={() => setIsLoaded(true)}
+        onError={() => setHasError(true)}
+      />
 
       {/* Loading State */}
-      {!isLoaded && (
+      {!isLoaded && !hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-muted">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
         </div>

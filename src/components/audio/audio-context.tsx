@@ -29,6 +29,7 @@ interface AudioContextType {
   // Actions
   play: (track?: Track) => void;
   pause: () => void;
+  stop: () => void;
   toggle: () => void;
   next: () => void;
   previous: () => void;
@@ -186,6 +187,18 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
     }
   }, []);
 
+  const stop = useCallback(() => {
+    if (howlRef.current) {
+      howlRef.current.stop();
+      howlRef.current.unload();
+    }
+    setCurrentTrack(null);
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setDuration(0);
+    stopTimeUpdate();
+  }, [stopTimeUpdate]);
+
   const toggle = useCallback(() => {
     if (isPlaying) {
       pause();
@@ -327,6 +340,7 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
     queue,
     play,
     pause,
+    stop,
     toggle,
     next,
     previous,

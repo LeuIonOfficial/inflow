@@ -5,7 +5,13 @@ export const TrackSchema = z.object({
   title: z.string(),
   duration: z.string(), // Format: "MM:SS"
   cover: z.string().url().optional(),
-  audioUrl: z.string().url(),
+  audioFile: z.object({
+    asset: z.object({
+      _id: z.string(),
+      url: z.string().url(),
+    }),
+  }),
+  audioUrl: z.string().url(), // Derived from audioFile.asset.url for player compatibility
   album: z.string().optional(),
   year: z.number().optional(),
   isSingle: z.boolean().default(false),
