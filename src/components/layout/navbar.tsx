@@ -3,25 +3,28 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Music, Menu } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { cn } from "@/lib/utils";
 
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Band", href: "/band" },
-  { name: "Festivals", href: "/portfolio/festivals" },
-  { name: "Music", href: "/music" },
-  { name: "Contact", href: "/contact" },
-];
-
 export function Navbar() {
+  const t = useTranslations();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = React.useState(false);
+
+  const navigation = [
+    { name: t("Home"), href: "/" },
+    { name: t("Band"), href: "/band" },
+    { name: t("Festivals"), href: "/portfolio/festivals" },
+    { name: t("Music"), href: "/music" },
+    { name: t("Contact"), href: "/contact" },
+  ];
 
   return (
     <motion.header
@@ -88,8 +91,9 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Theme Switcher & Mobile Menu */}
+          {/* Language Switcher, Theme Switcher & Mobile Menu */}
           <div className="flex items-center space-x-2">
+            <LanguageSwitcher />
             <ThemeSwitcher />
 
             {/* Mobile Menu */}
@@ -97,7 +101,7 @@ export function Navbar() {
               <SheetTrigger asChild className="md:hidden">
                 <Button variant="ghost" size="icon">
                   <Menu className="h-5 w-5" />
-                  <span className="sr-only">Toggle menu</span>
+                  <span className="sr-only">{t("Toggle menu")}</span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-80">
