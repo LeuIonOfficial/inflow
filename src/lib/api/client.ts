@@ -10,9 +10,22 @@ type ApiResponse<T> = {
 
 // Generic fetch function with error handling
 async function apiRequest<T>(endpoint: string): Promise<T> {
-  // Always use relative URLs for API calls - works in both server and client
-  const url = `/api${endpoint}`;
-  console.log("Making API request to:", url);
+  // Detect if we're on server or client
+  const isServer = typeof window === "undefined";
+
+  let url: string;
+  if (isServer) {
+    // Server-side: construct absolute URL
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
+    url = `${baseUrl}/api${endpoint}`;
+  } else {
+    // Client-side: relative URL works fine
+    url = `/api${endpoint}`;
+  }
+
+  console.log("Making API request to:", url, { isServer });
 
   const response = await fetch(url, {
     next: { revalidate: 60 }, // Cache for 60 seconds
