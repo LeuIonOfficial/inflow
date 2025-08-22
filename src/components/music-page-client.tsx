@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Play, Plus, Clock, Calendar, Pause } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { EnhancedImage } from "@/components/enhanced-image";
+import Image from "next/image";
 
 import { type Track } from "@/lib/schemas/track";
 import { useAudio } from "@/components/audio/audio-context";
@@ -108,13 +108,16 @@ export function MusicPageClient({ tracks }: MusicPageClientProps) {
                   className="group hover:shadow-lg transition-shadow"
                 >
                   <CardHeader className="pb-4">
-                    <div className="aspect-square relative overflow-hidden rounded-lg">
+                    <div className="aspect-square relative overflow-hidden rounded-lg bg-muted">
                       {track.cover ? (
-                        <EnhancedImage
+                        <Image
                           src={track.cover}
                           alt={`${track.title} cover`}
                           fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          onLoad={() => {}}
+                          onError={() => {}}
                         />
                       ) : (
                         <div className="w-full h-full bg-muted flex items-center justify-center">

@@ -85,7 +85,7 @@ export interface SanityTrack {
   title: string;
   duration: string;
   cover?: { asset: { _id: string; url: string } };
-  audioUrl: string;
+  audioFile: { asset: { _id: string; url: string } };
   album?: string;
   year?: number;
   isSingle: boolean;
