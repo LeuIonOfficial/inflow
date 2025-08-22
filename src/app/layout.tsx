@@ -13,7 +13,15 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body className="p-0 m-0 h-[100dvh]">{children}</body>
+      <body
+        style={{
+          padding: 0,
+          margin: 0,
+          height: "100dvh",
+        }}
+      >
+        {children}
+      </body>
     </html>
   );
 }
