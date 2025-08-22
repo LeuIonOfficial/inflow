@@ -16,9 +16,7 @@ async function apiRequest<T>(endpoint: string): Promise<T> {
   let url: string;
   if (isServer) {
     // Server-side: construct absolute URL
-    const baseUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
     url = `${baseUrl}/api${endpoint}`;
   } else {
     // Client-side: relative URL works fine
