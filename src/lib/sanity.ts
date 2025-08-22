@@ -6,6 +6,15 @@ const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2024-01-01";
 
+console.log("Sanity client config:", {
+  projectId,
+  dataset,
+  apiVersion,
+  hasToken: !!process.env.SANITY_API_READ_TOKEN,
+  tokenLength: process.env.SANITY_API_READ_TOKEN?.length,
+  nodeEnv: process.env.NODE_ENV,
+});
+
 export const client = createClient({
   projectId,
   dataset,

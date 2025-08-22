@@ -8,34 +8,19 @@ type ApiResponse<T> = {
   error?: string;
 };
 
-// Get the base URL for API requests
-function getApiBaseUrl(): string {
-  const url = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
-
-  console.log("API Base URL:", url, {
-    VERCEL_URL: process.env.VERCEL_URL,
-    NODE_ENV: process.env.NODE_ENV,
-  });
-
-  return url;
-}
-
-const API_BASE = `${getApiBaseUrl()}/api`;
-
 // Generic fetch function with error handling
 async function apiRequest<T>(endpoint: string): Promise<T> {
-  const fullUrl = `${API_BASE}${endpoint}`;
-  console.log("Making API request to:", fullUrl);
+  // Always use relative URLs for API calls - works in both server and client
+  const url = `/api${endpoint}`;
+  console.log("Making API request to:", url);
 
-  const response = await fetch(fullUrl, {
+  const response = await fetch(url, {
     next: { revalidate: 60 }, // Cache for 60 seconds
   });
 
   if (!response.ok) {
     console.error(
-      `API request failed: ${response.status} ${response.statusText} for ${fullUrl}`
+      `API request failed: ${response.status} ${response.statusText} for ${url}`
     );
     throw new Error(`API request failed: ${response.statusText}`);
   }
@@ -77,21 +62,3 @@ export async function getTracks(): Promise<Track[]> {
 export async function getTrackById(id: string): Promise<Track> {
   return apiRequest<Track>(`/tracks/${id}`);
 }
-
-// Client-side API functions (for use in client components)
-export const api = {
-  members: {
-    getAll: () => fetch("/api/members").then((r) => r.json()),
-    getBySlug: (slug: string) =>
-      fetch(`/api/members/${slug}`).then((r) => r.json()),
-  },
-  festivals: {
-    getAll: () => fetch("/api/festivals").then((r) => r.json()),
-    getBySlug: (slug: string) =>
-      fetch(`/api/festivals/${slug}`).then((r) => r.json()),
-  },
-  tracks: {
-    getAll: () => fetch("/api/tracks").then((r) => r.json()),
-    getById: (id: string) => fetch(`/api/tracks/${id}`).then((r) => r.json()),
-  },
-};
