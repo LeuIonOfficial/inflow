@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import {
   Music,
   Facebook,
@@ -22,21 +23,22 @@ const socialLinks = [
   { name: "YouTube", icon: Youtube, href: "#" },
 ];
 
-const quickLinks = [
-  { name: "Band", href: "/band" },
-  { name: "Festivals", href: "/portfolio/festivals" },
-  { name: "Music", href: "/music" },
-  { name: "Contact", href: "/contact" },
-];
-
-const legalLinks = [
-  { name: "Privacy Policy", href: "/privacy" },
-  { name: "Terms of Service", href: "/terms" },
-];
-
 export function Footer() {
+  const t = useTranslations();
   const [email, setEmail] = React.useState("");
   const [isSubscribing, setIsSubscribing] = React.useState(false);
+
+  const quickLinks = [
+    { name: t("Band"), href: "/band" },
+    { name: t("Festivals"), href: "/portfolio/festivals" },
+    { name: t("Music"), href: "/music" },
+    { name: t("Contact"), href: "/contact" },
+  ];
+
+  const legalLinks = [
+    { name: t("Privacy Policy"), href: "/privacy" },
+    { name: t("Terms of Service"), href: "/terms" },
+  ];
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,21 +68,19 @@ export function Footer() {
               <span className="text-xl font-bold text-gradient">INFLOW</span>
             </Link>
             <p className="text-muted-foreground mb-6 max-w-md">
-              Experience the raw energy and powerful sound of INFLOW,
-              Moldova&apos;s premier rock band. Join us on our journey through
-              festivals, albums, and unforgettable live performances.
+              {t("Moldovas premier rock band Join us on our journey")}
             </p>
 
             {/* Newsletter */}
             <div>
-              <h4 className="text-sm font-semibold mb-3">Stay Updated</h4>
+              <h4 className="text-sm font-semibold mb-3">{t("Follow Us")}</h4>
               <form
                 onSubmit={handleNewsletterSubmit}
                 className="flex space-x-2"
               >
                 <Input
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder={t("Your Email")}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -111,7 +111,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-sm font-semibold mb-4">{t("Music")}</h4>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
@@ -128,7 +128,7 @@ export function Footer() {
 
           {/* Contact & Social */}
           <div>
-            <h4 className="text-sm font-semibold mb-4">Connect</h4>
+            <h4 className="text-sm font-semibold mb-4">{t("Contact")}</h4>
             <div className="flex space-x-2 mb-4">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
@@ -154,7 +154,10 @@ export function Footer() {
         </div>
 
         <div className="mt-8 pt-8 border-t flex flex-col md:flex-row justify-between items-center">
-          <div className="text-sm text-muted-foreground mb-4 md:mb-0">
+          <div
+            className="text-sm text-muted-foreground mb-4 md:mb-0"
+            suppressHydrationWarning
+          >
             © {new Date().getFullYear()} INFLOW. All rights reserved.
           </div>
           <div className="flex space-x-4">
